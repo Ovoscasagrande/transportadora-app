@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Casagrande · Frota</title>
+<meta name="theme-color" content="#0C0E11">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="assets/marca/icone-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#010D23">
+<meta name="description" content="Controle de frota da Casagrande Transportes Refrigerados: jornada, custo por km, recebimentos e conferência.">
+<meta property="og:title" content="Casagrande · Frota">
+<meta property="og:description" content="Controle de frota da Casagrande Transportes Refrigerados">
+<meta property="og:image" content="assets/marca/icone-512.png">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+
+<!-- LOGIN -->
+<section id="login">
+  <div class="caixa">
+    <div class="logo-login"><img src="assets/marca/logo-principal.png" alt="Casagrande Transportes Refrigerados"></div>
+    <form id="form-login" autocomplete="on">
+      <div class="campo">
+        <label for="lg-email">E-mail</label>
+        <input id="lg-email" type="email" required autocomplete="username" placeholder="voce@transportadora.com">
+      </div>
+      <div class="campo">
+        <label for="lg-senha">Senha</label>
+        <input id="lg-senha" type="password" required autocomplete="current-password" placeholder="••••••••">
+      </div>
+      <button class="btn cheio" type="submit" id="lg-btn">Entrar</button>
+      <p class="dica centro mt3" id="lg-msg"></p>
+      <div style="text-align:center;margin-top:14px">
+        <button type="button" class="link-esqueci" id="lg-esqueci">Esqueci minha senha</button>
+      </div>
+      <div style="text-align:center;margin-top:6px;padding-top:14px;border-top:1px solid var(--line)">
+        <span class="pq txt3">Ainda não tem acesso?</span>
+        <button type="button" class="link-esqueci" id="lg-cadastrar">Criar cadastro</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- APP -->
+<div id="app" class="esconde">
+  <aside id="sidebar">
+    <div class="sb-marca">
+      <span class="sb-logo"><img src="assets/marca/simbolo.png" alt=""></span>
+      <div><div class="sb-nome">Casagrande</div><div class="sb-sub">Transportes</div></div>
+    </div>
+    <div class="sb-usuario" id="sb-usuario"></div>
+    <nav class="sb-nav" id="sb-nav"></nav>
+    <button class="sb-sair" id="sb-sair"><span data-icon="log-out"></span> Sair</button>
+  </aside>
+
+  <div class="conteudo">
+    <header class="topo">
+      <button class="volta esconde" id="topo-volta" aria-label="Voltar"><span data-icon="chevron-left"></span></button>
+      <h1 id="topo-titulo">Início</h1>
+      <span class="status-conexao" id="status-conexao"></span>
+      <button class="btn-tema" id="btn-tema" aria-label="Alternar tema"><span data-icon="moon"></span></button>
+      <button class="acao esconde" id="topo-acao"></button>
+    </header>
+    <main id="tela" class="tela-topo"></main>
+  </div>
+
+  <nav id="tab"></nav>
+  <div id="mais-veu" class="esconde"><div id="mais-sheet" role="dialog" aria-label="Mais telas"></div></div>
+</div>
+
+<!-- CADASTRO -->
+<section id="cadastro" class="esconde">
+  <div class="caixa">
+    <div class="logo-topo pequeno"><img src="assets/marca/logo-principal.png" alt="Casagrande"></div>
+    <h1 style="text-align:center">Criar cadastro</h1>
+    <p class="dica" style="margin-bottom:14px">
+      Depois de criar, seu acesso é liberado pela gerência. Você recebe um e-mail de confirmação.
+    </p>
+    <form id="form-cadastro">
+      <div class="campo">
+        <label for="cd-nome">Nome completo</label>
+        <input id="cd-nome" type="text" required autocomplete="name" placeholder="Seu nome">
+      </div>
+      <div class="campo">
+        <label for="cd-email">E-mail</label>
+        <input id="cd-email" type="email" required autocomplete="email" placeholder="voce@email.com">
+      </div>
+      <div class="campo">
+        <label for="cd-tel">Telefone (opcional)</label>
+        <input id="cd-tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="(19) 99999-9999">
+      </div>
+      <div class="campo">
+        <label for="cd-senha">Senha</label>
+        <input id="cd-senha" type="password" required minlength="6" autocomplete="new-password" placeholder="mínimo 6 caracteres">
+      </div>
+      <div class="campo">
+        <label for="cd-senha2">Repita a senha</label>
+        <input id="cd-senha2" type="password" required minlength="6" autocomplete="new-password" placeholder="repita">
+      </div>
+      <button class="btn cheio" type="submit" id="cd-btn">Criar cadastro</button>
+      <p class="dica centro mt3" id="cd-msg"></p>
+      <div style="text-align:center;margin-top:8px">
+        <button type="button" class="link-esqueci" id="cd-voltar">Já tenho acesso — entrar</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- AGUARDANDO LIBERAÇÃO -->
+<section id="aguardando" class="esconde">
+  <div class="caixa" style="text-align:center">
+    <div class="logo-topo"><img src="assets/marca/logo-principal.png" alt="Casagrande"></div>
+    <h1 style="font-size:22px">Cadastro enviado</h1>
+    <div style="margin:18px 0 14px;color:var(--atencao)" data-icon="circle-alert"></div>
+    <p class="pq txt2" style="line-height:1.6;margin-bottom:8px">
+      Seu acesso está <b>aguardando liberação da gerência</b>.
+    </p>
+    <p class="pq txt3" style="line-height:1.6;margin-bottom:20px">
+      Assim que liberarem, entre de novo com o mesmo e-mail e senha.
+    </p>
+    <button class="btn cheio" id="ag-sair">Voltar para o login</button>
+  </div>
+</section>
+
+<!-- REDEFINIR SENHA: mostrada quando o usuário volta pelo link do e-mail -->
+<section id="redefinir" class="esconde">
+  <div class="caixa">
+    <div class="logo-topo pequeno"><img src="assets/marca/logo-principal.png" alt="Casagrande"></div>
+    <h1 style="text-align:center">Nova senha</h1>
+    <p class="dica" style="margin-bottom:14px">Escolha a senha que você vai usar para entrar.</p>
+    <form id="form-redefinir">
+      <div class="campo">
+        <label for="rd-senha">Nova senha</label>
+        <input id="rd-senha" type="password" required minlength="6" autocomplete="new-password" placeholder="mínimo 6 caracteres">
+      </div>
+      <div class="campo">
+        <label for="rd-senha2">Repita a nova senha</label>
+        <input id="rd-senha2" type="password" required minlength="6" autocomplete="new-password" placeholder="repita">
+      </div>
+      <button class="btn cheio" type="submit" id="rd-btn">Salvar senha</button>
+      <p class="dica centro mt3" id="rd-msg"></p>
+    </form>
+  </div>
+</section>
+
+<div id="offline-banner" class="esconde"></div>
+<div id="toast"></div>
+
+<div id="veu">
+  <div id="modal" role="dialog" aria-modal="true"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- ECharts 5.5.1: gráficos analíticos. Carrega ANTES das telas. -->
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script>
+  /* fallback local: sem CDN (offline/bloqueio) usa a cópia do pacote */
+  window.echarts || document.write('<script src="assets/vendor/echarts.min.js"><\/script>');
+</script>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="assets/vendor/pdf.min.js"></script>
+<script>
+  if (window.pdfjsLib) {
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'assets/vendor/pdf.worker.min.js';
+  }
+</script>
+<script src="assets/js/leitor-pedagio.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/offline-sync.js"></script>
+<script src="assets/js/analytics-engine.js"></script>
+<script src="assets/js/telas.js"></script>
+<script src="assets/js/telas-operacao.js"></script>
+<script src="assets/js/telas-despesa.js"></script>
+<script src="assets/js/telas-motorista.js"></script>
+<script src="assets/js/telas-motorista2.js"></script>
+<script src="assets/js/telas-jornada-mot.js"></script>
+<script src="assets/js/telas-recebimento.js"></script>
+<script src="assets/js/telas-pedagio.js"></script>
+<script src="assets/js/melhorias.js"></script>
+<script src="assets/js/telas-cadastro.js"></script>
+<script src="assets/js/telas-usuarios.js"></script>
+<script src="assets/js/telas-conferencia.js"></script>
+</body>
+</html>
